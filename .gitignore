@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Node modules
+node_modules/
+
+# n8n credentials (if any local files exist)
+credentials.json
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+
+# OS files
+Thumbs.db
