@@ -188,7 +188,7 @@ AquaSentinel-AI/
 **Pratham Deshmukh**
 
 - GitHub: https://github.com/prathamdesh07-afk
-- LinkedIn:
+- LinkedIn: www.linkedin.com/in/pratham-deshmukh-78a359370
 
 ## 🙏 Acknowledgements
 This project was developed as part of an AI Hackathon to demonstrate the potential of Agentic AI for solving real-world water management challenges using n8n automation and Large Language Models.
