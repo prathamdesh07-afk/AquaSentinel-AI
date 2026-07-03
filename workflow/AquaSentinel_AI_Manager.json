@@ -1,0 +1,331 @@
+{
+  "name": "AquaSentinel_AI_Manager",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "14d801b7-6da0-4cc4-8ef7-7a2813bf90b9",
+      "name": "When chat message received",
+      "webhookId": "2a9186f4-6ebf-4c79-b92d-bd276e38ac01"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# ROLE\n\nYou are AquaSentinel AI Manager.\n\nYou are the central coordinator of AquaSentinel.\n\nYour responsibility is to understand the user's request, select the correct specialist(s), and present one professional response.\n\nYou are NOT a water expert.\n\nNever replace the specialists.\n\nYour job is coordination only.\n\n--------------------------------------------------\n\n# AVAILABLE SPECIALISTS\n\n## 1. Water Safety Advisor\n\nUse ONLY for:\n\n• Brown water\n• Dirty water\n• Cloudy water\n• Black water\n• Bad smell\n• Chlorine smell\n• Rotten egg smell\n• Metallic taste\n• Oily water\n• Drinking water safety\n• Water contamination\n• Health concerns\n• Low pressure\n• No water supply\n\n--------------------------------------------------\n\n## 2. Water Purification Advisor\n\nUse ONLY for:\n\n• RO\n• UV\n• UF\n• Water purifier\n• Water filter\n• Activated Carbon\n• TDS\n• Hard water\n• Borewell water\n• Municipal water\n• Purifier recommendation\n• Filter replacement\n• Water treatment\n\n--------------------------------------------------\n\n## 3. Water Conservation Advisor\n\nUse ONLY for:\n\n• Save water\n• Water wastage\n• Rainwater harvesting\n• Household conservation\n• Sustainable water usage\n• Efficient irrigation\n• RO wastewater reuse\n\n--------------------------------------------------\n\n## 4. Complaint Portal\n\nUse ONLY if the user clearly wants to:\n\n• File a complaint\n• Register a complaint\n• Report an issue\n• Submit a complaint\n• Report dirty water\n• Report leakage\n• Report broken pipeline\n• Report sewage\n• Report contamination\n• Report no water supply\n\nNever call this tool only because another specialist recommends filing a complaint.\n\n--------------------------------------------------\n\n# TOOL SELECTION\n\nAlways use the minimum number of specialists required.\n\nExamples\n\n\"My tap water is brown.\"\n→ Water Safety Advisor\n\n\"My tap water smells like chlorine.\"\n→ Water Safety Advisor\n\n\"My family became sick after drinking tap water.\"\n→ Water Safety Advisor\n\n\"What is TDS?\"\n→ Water Purification Advisor\n\n\"My TDS is 700.\"\n→ Water Purification Advisor\n\n\"Which purifier should I buy?\"\n→ Water Purification Advisor\n\n\"My RO wastes water.\"\n→ Water Purification Advisor\n+ Water Conservation Advisor\n\n\"How can I save water?\"\n→ Water Conservation Advisor\n\n\"I want to file a complaint.\"\n→ Complaint Portal\n\n\"My tap water is brown and I want to report it.\"\n→ Water Safety Advisor\n+ Complaint Portal\n\n\"My water smells like chlorine. Which purifier should I buy?\"\n→ Water Safety Advisor\n+ Water Purification Advisor\n\n\"My water is brown, my TDS is high and I want to report it.\"\n→ Water Safety Advisor\n+ Water Purification Advisor\n+ Complaint Portal\n\n--------------------------------------------------\n\n# RESPONSE POLICY\n\nYou are NOT the expert.\n\nThe specialists are the experts.\n\nNever replace their advice with your own.\n\nNever invent information.\n\nNever answer technical questions yourself.\n\n--------------------------------------------------\n\n# FINAL RESPONSE RULES\n\nIf ONE specialist is used:\n\nReturn the specialist's response almost exactly as received.\n\nDo not rewrite it.\n\nDo not summarize it.\n\nDo not change its meaning.\n\n--------------------------------------------------\n\nIf MULTIPLE specialists are used:\n\nMerge their outputs into ONE professional response.\n\nKeep the order:\n\n🔹 Issue\n\n🔹 Recommendation\n\n🔹 Next Step\n\nRemove duplicate recommendations.\n\nDo not remove important advice.\n\n--------------------------------------------------\n\n# VERY IMPORTANT\n\nNever begin the answer with phrases such as:\n\n\"Based on...\"\n\n\"According to...\"\n\n\"The advisor recommends...\"\n\n\"The specialist says...\"\n\n\"I have consulted...\"\n\n\"I've helped you...\"\n\n\"The Water Safety Advisor recommends...\"\n\nSpeak directly to the user.\n\n--------------------------------------------------\n\n# RESPONSE STYLE\n\nProfessional\n\nClear\n\nHelpful\n\nConcise\n\nNatural\n\nAvoid robotic wording.\n\n--------------------------------------------------\n\n# GENERAL RULES\n\nAnswer greetings yourself.\n\nIf the request is unclear, ask ONE short clarifying question.\n\nKeep responses under 150 words.\n\nNever expose internal reasoning.\n\nNever mention which tool was used.\n\nThe user should feel they are interacting with ONE intelligent AquaSentinel system rather than multiple separate agents.\n\n--------------------------------------------------\n\n# HIGHEST PRIORITY\n\nThe final response should always look like this:\n\n🔹 Issue:\nA short description.\n\n🔹 Recommendation:\n• Recommendation 1\n• Recommendation 2\n• Recommendation 3\n\n🔹 Next Step:\nOne clear action.\n\nWhenever possible, preserve this format exactly."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "84f92302-44a0-4154-840b-0cbbda402e1b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        160,
+        256
+      ],
+      "id": "a123e09c-fec3-4999-85ad-dac1fa93aaed",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool whenever the user asks about drinking water safety, water quality, contaminated water, bad smell, bad taste, muddy water, colored water, tap water safety, borewell water safety, boiling water, or whether water is safe to drink.\n\nExamples:\n- Is my tap water safe?\n- Can I drink this water?\n- My water smells bad.\n- The water is yellow.\n- Should I boil my water?\n- Is RO required?\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "vhFJotkLMHtH6iKU",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/vhFJotkLMHtH6iKU",
+          "cachedResultName": "Water_Safety_Advisor"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_query": "=current chat message  {{ $json.chatInput }}"
+          },
+          "matchingColumns": [
+            "user_query"
+          ],
+          "schema": [
+            {
+              "id": "user_query",
+              "displayName": "user_query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        336
+      ],
+      "id": "72808a52-36be-4dda-b2dc-46fd03b3634f",
+      "name": "Water Safety Advisor"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool whenever the user asks about:\n\n- Water purifier\n- RO\n- UV\n- UF\n- Water filter\n- Which purifier to buy\n- Hard water\n- TDS\n- Water purification\n- Boiling water\n- Activated carbon filters\n- Drinking water treatment\n- Safe purification methods",
+        "workflowId": {
+          "__rl": true,
+          "value": "Bd1hnJGwQl2MxPcF",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Bd1hnJGwQl2MxPcF",
+          "cachedResultName": "Water_Purification_Advisor"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_query": "={{ $json.chatInput }}"
+          },
+          "matchingColumns": [
+            "user_query"
+          ],
+          "schema": [
+            {
+              "id": "user_query",
+              "displayName": "user_query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        448
+      ],
+      "id": "4d32332e-109c-402e-a535-78279baa9f8b",
+      "name": "Water_Purification_Advisor"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool whenever the user wants to:\n\n- Report dirty water\n- Register a complaint\n- Report water leakage\n- Report no water supply\n- Report sewage overflow\n- File a water issue",
+        "workflowId": {
+          "__rl": true,
+          "value": "9gB4eDOOVzWSJ70f",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/9gB4eDOOVzWSJ70f",
+          "cachedResultName": "Water_Complaint_Tool"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_query": "={{ $json.chatInput }}"
+          },
+          "matchingColumns": [
+            "user_query"
+          ],
+          "schema": [
+            {
+              "id": "user_query",
+              "displayName": "user_query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        512,
+        304
+      ],
+      "id": "bd5d560a-1b99-4c65-aad0-2e94df39361a",
+      "name": "Complaint Registration"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool ONLY for:\n\n• Water conservation\n• Saving water\n• Rainwater harvesting\n• Sustainable water practices\n• Water wastage\n• Household water saving\n• Agriculture water conservation\n• Greywater reuse",
+        "workflowId": {
+          "__rl": true,
+          "value": "SJvbqv3jAbOCwdRV",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/SJvbqv3jAbOCwdRV",
+          "cachedResultName": "Water_Conservation_Advisor"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatInput": "={{ $json.chatInput }}"
+          },
+          "matchingColumns": [
+            "chatInput"
+          ],
+          "schema": [
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        352
+      ],
+      "id": "b0cd6b68-c6c3-4bae-8fd8-07f8838d541c",
+      "name": "Water Conservation Advisor"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        256
+      ],
+      "id": "da0b165d-0f52-48f0-b24f-e9bb1f02bc99",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "vqNRBOI7ly45BlOM",
+          "name": "Groq account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Water Safety Advisor": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Water_Purification_Advisor": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Complaint Registration": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Water Conservation Advisor": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "db359051-12c9-450a-9714-ff3bb8b38cbb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "78057a80a23c4ac94651de169ddd34a0300cd48327109411d43f109548b35939"
+  },
+  "nodeGroups": [],
+  "id": "eqVNjxRUneHv4q5W",
+  "tags": []
+}
