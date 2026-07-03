@@ -57,3 +57,138 @@ The AI Manager routes each user query to the most appropriate specialist, ensuri
 - ☁️ Cloud-based n8n Workflow
 
 ---
+##  🏗️ System Architecture
+
+```
+                User
+                  │
+                  ▼
+        AquaSentinel AI Manager
+                  │
+      ┌───────────┼────────────┐
+      ▼           ▼            ▼
+ Water Safety  Water         Water
+   Advisor   Purification  Conservation
+                Advisor       Advisor
+                  │
+                  ▼
+        Complaint Registration
+                  │
+                  ▼
+          n8n Complaint Form
+```
+
+The AI Manager intelligently routes each user request to the appropriate specialist AI agent. If multiple domains are involved, it combines the responses into a single concise answer.
+
+## ⚙️ Tech Stack
+
+| Component           |      Technology               |
+|---------------------|-------------------------------|
+| Workflow Automation | n8n                           |
+| AI Orchestration    | Multi-Agent AI                |
+| LLM                 | Gemini 2.5 Flash / Groq Llama |
+| Complaint Form      | n8n Form                      |
+| Memory              | Simple Memory                 |
+| Deployment          | n8n Cloud                     |
+| Version Control     | GitHub                        |
+
+## 🤖 AI Specialists
+
+AquaSentinel uses four specialized AI agents coordinated by a central AI Manager.
+
+### 🛡️ Water Safety Advisor
+- Detects common water quality issues
+- Assesses potential health risks
+- Provides practical safety recommendations
+
+### 💧 Water Purification Advisor
+- Explains TDS and water treatment
+- Recommends suitable purifiers
+- Suggests purification methods
+
+### 🌱 Water Conservation Advisor
+- Promotes sustainable water usage
+- Recommends conservation techniques
+- Encourages efficient household practices
+
+### 📝 Complaint Registration Advisor
+- Guides users to the official complaint form
+- Explains required information
+- Generates complaint submission guidance
+
+## 🔄 Workflow
+
+The AquaSentinel workflow follows a multi-agent architecture:
+
+1. User submits a water-related query.
+2. AI Manager analyzes the request.
+3. The appropriate specialist AI agent(s) are selected.
+4. Specialist agents generate domain-specific recommendations.
+5. If required, the Complaint Registration Agent directs the user to the official complaint form.
+6. The AI Manager combines the responses into a single concise answer.
+
+## 📁 Project Structure
+
+```
+AquaSentinel-AI/
+│
+├── workflow/
+│   └── AquaSentinel_AI_Workflow.json
+│
+├── screenshots/
+│
+├── docs/
+│
+├── assets/
+│
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+## 📸 Screenshots
+
+### AI Workflow
+
+> *(Insert workflow screenshot here)*
+
+### Chat Interface
+
+> *(Insert chatbot conversation screenshot here)*
+
+### Complaint Registration Form
+
+> *(Insert complaint form screenshot here)*
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- n8n Cloud or Self-hosted n8n
+- Gemini API Key or Groq API Key
+
+### Installation
+
+1. Clone this repository.
+2. Import the workflow JSON into n8n.
+3. Configure the required API credentials.
+4. Activate the workflow.
+5. Start chatting with AquaSentinel AI.
+
+## 🔮 Future Scope
+
+- IoT sensor integration for real-time water monitoring
+- GIS-based water issue mapping
+- Multilingual support
+- Mobile application
+- Predictive water quality analytics
+- Integration with municipal water departments
+
+## 👨‍💻 Author
+
+**Pratham Deshmukh**
+
+- GitHub: https://github.com/prathamdesh07-afk
+- LinkedIn:
+
+## 🙏 Acknowledgements
+This project was developed as part of an AI Hackathon to demonstrate the potential of Agentic AI for solving real-world water management challenges using n8n automation and Large Language Models.
