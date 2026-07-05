@@ -145,20 +145,6 @@ AquaSentinel-AI/
 ├── LICENSE
 └── .gitignore
 ```
-## 📸 Screenshots
-
-### AI Workflow
-
-> *(Insert workflow screenshot here)*
-
-### Chat Interface
-
-> *(Insert chatbot conversation screenshot here)*
-
-### Complaint Registration Form
-
-> *(Insert complaint form screenshot here)*
-
 ## 🚀 Getting Started
 
 ### Prerequisites
